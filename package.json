@@ -29,7 +29,8 @@
     "react-dom": "^19.1.0"
   },
   "optionalDependencies": {
-   "@rollup/rollup-linux-x64-gnu": "*"
+   "@rollup/rollup-linux-x64-gnu": "*",
+   "@esbuild/linux-x64": "*"
   },
   "homepage": "https://geniuses43.github.io/goozave/"
 }
