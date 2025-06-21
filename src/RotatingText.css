@@ -1,0 +1,351 @@
+/* ===== ROTATING TEXT COMPONENT STYLES ===== */
+
+/* Основной контейнер вращающегося текста */
+.text-rotate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-width: fit-content;
+  width: auto;
+  height: 1.2em;
+  overflow: visible;
+  vertical-align: baseline;
+}
+
+/* Скрытый текст для скринридеров */
+.text-rotate-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Контейнер для слов */
+.text-rotate-word {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Контейнер для многострочного текста */
+.text-rotate-lines {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Отдельные элементы (буквы/слова) */
+.text-rotate-element {
+  display: inline-block;
+  transform-origin: center bottom;
+  will-change: transform, opacity;
+}
+
+/* Пробелы между словами */
+.text-rotate-space {
+  white-space: pre;
+  display: inline-block;
+}
+
+/* ===== СТИЛИ ДЛЯ HERO СЕКЦИИ ===== */
+
+/* КЛЮЧЕВОЕ РЕШЕНИЕ: Grid-контейнер для заголовка */
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  /* Отображаем слово‑замену на новой строке */
+  display: grid;
+  grid-template-columns: 1fr;     /* одна колонка */
+  grid-template-rows: auto auto;  /* две строки: статичное + вращающееся слово */
+  justify-items: start;
+  gap: 1rem;
+  
+  /* Для переноса на мобильных */
+  width: fit-content;
+  max-width: 100%;
+
+  /* Allow rotating word to be taken out of normal flow so it doesn't resize the grid */
+  position: relative; /* establish containing block */
+  overflow: visible;
+}
+
+/* Вращающееся слово выводим на вторую строку */
+.rotating-word-container {
+  position: absolute;
+  left: 0;
+  top: 100%;          /* place directly under the static word */
+  margin-top: 0.75rem;/* vertical gap between the two lines */
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible;  /* allow the word to overflow without clipping */
+  pointer-events: none; /* make sure clicks pass through */
+}
+
+/* Элементы заголовка */
+.hero-title-part {
+  white-space: nowrap;
+}
+
+/* Контейнер для вращающегося слова */
+/* Removed previous .rotating-word-container rule as replaced above */
+
+/* Вращающееся слово */
+.rotating-word {
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  
+  /* Динамические размеры */
+  min-width: fit-content;
+  width: auto;
+  height: auto;
+  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  
+  /* Плавные переходы */
+  transition: all 0.3s ease;
+}
+
+.text-rotate-ghost {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+/* Эффект блика на вращающемся слове */
+.rotating-word::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: shimmer 3s infinite;
+  pointer-events: none;
+}
+
+/* Анимация блика */
+@keyframes shimmer {
+  0% { 
+    left: -100%; 
+  }
+  100% { 
+    left: 100%; 
+  }
+}
+
+/* Улучшенные переходы для букв */
+.text-rotate-element {
+  transition: all 0.1s ease-out;
+}
+
+/* Hover эффекты */
+.rotating-word:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+.rotating-word:hover::before {
+  animation-duration: 1.5s;
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+
+/* Планшеты */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+    justify-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+  
+  .hero-title-part {
+    grid-column: 1;
+  }
+  
+  /* Removed min-height override for .rotating-word-container */
+
+  .rotating-word {
+    padding: 0.4rem 1.2rem;
+  }
+}
+
+/* Мобильные устройства */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2rem;
+    gap: 1rem;
+    justify-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* Removed min-height override for .rotating-word-container */
+
+  .rotating-word {
+    padding: 0.3rem 1rem;
+    font-size: 0.9em;
+    border-radius: 10px;
+  }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 360px) {
+  .rotating-word {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.85em;
+  }
+  
+  /* Removed min-height override for .rotating-word-container */
+}
+
+/* ===== ACCESSIBILITY ===== */
+
+/* Уменьшение анимаций для пользователей с вестибулярными расстройствами */
+@media (prefers-reduced-motion: reduce) {
+  .text-rotate-element {
+    transition: none !important;
+  }
+  
+  .rotating-word::before {
+    animation: none !important;
+  }
+  
+  .rotating-word:hover {
+    transform: none !important;
+  }
+  
+  .rotating-word {
+    transition: none !important;
+  }
+}
+
+/* Высокая контрастность */
+@media (prefers-contrast: high) {
+  .rotating-word {
+    background: #000;
+    color: #fff;
+    border: 2px solid #fff;
+  }
+}
+
+/* ===== УТИЛИТЫ ===== */
+
+/* Класс для скрытия overflow у родителя */
+.overflow-hidden {
+  overflow: hidden;
+}
+
+/* Класс для inline-block элементов */
+.inline-block {
+  display: inline-block;
+}
+
+/* Класс для центрирования */
+.text-center {
+  text-align: center;
+}
+
+/* ===== ДОПОЛНИТЕЛЬНЫЕ СТИЛИ ДЛЯ HERO ===== */
+
+/* Контейнер заголовка */
+.headline-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 600px;
+}
+
+/* Подзаголовок */
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+/* CTA кнопка */
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  color: #7c3aed;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  background: #7c3aed;
+  color: white;
+}
+
+/* Плавное появление элементов */
+.animate-in {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== DESKTOP LAYOUT GAP ===== */
+@media (min-width: 951px) {
+  /* добавляем отступ справа от заголовка,
+     чтобы между словом "Продуктовое" и карточкой
+     всегда оставалось 4rem */
+  .hero-title {
+    margin-right: 0;
+  }
+}
+
+/* ===== ДОПОЛНИТЕЛЬНЫЕ КЛАССЫ ДЛЯ ОТЛАДКИ ===== */
+
+/* Для визуальной отладки grid (можно удалить в продакшене) */
+.debug-grid .hero-title {
+  outline: 1px dashed rgba(255, 255, 255, 0.3);
+}
+
+.debug-grid .hero-title > * {
+  outline: 1px dashed rgba(255, 0, 0, 0.3);
+}

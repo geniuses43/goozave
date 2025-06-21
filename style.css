@@ -1,0 +1,244 @@
+/* =========================================
+   ReactBits‑inspired Dark Theme  ✨
+   ========================================= */
+
+/* ---------- Tokens ---------- */
+:root{
+  --bg:#0D0D0D;
+  --fg:#E5E7EB;
+  --accent:#38BDF8;
+  --accent2:#7C3AED;
+  --radius:10px;
+  --max-w:820px;
+  --mono:"JetBrains Mono","Fira Code",monospace;
+}
+
+/* ---------- Reset & Base ---------- */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:"Inter",sans-serif;
+  background:var(--bg);
+  color:var(--fg);
+  scroll-behavior:smooth;
+  line-height:1.7;
+  margin-top: -4rem;
+}
+
+/* ---------- Typography ---------- */
+h1,h2,h3,h4{font-weight:800;letter-spacing:-.02em;}
+h1{font-size:clamp(3rem,7vw,4.5rem)}
+h2{font-size:clamp(2rem,5vw,3rem);margin-bottom:2rem;}
+h3{font-size:1.5rem;margin-bottom:.75rem;}
+h4{font-size:1.125rem;margin-bottom:.5rem;}
+p,li{font-size:1rem;max-width:60ch;}
+code,.mono{font-family:var(--mono);background:#151515;padding:.15em .35em;border-radius:4px;font-size:.9rem;}
+
+/* ---------- Layout ---------- */
+.container{max-width:var(--max-w);margin-inline:auto;padding-inline:1rem;}
+section{padding-block:min(14vh,10rem);border-bottom:0px solid #1F1F1F;}
+
+/* ---------- Header ---------- */
+header{
+  position:sticky;top:0;z-index:100;
+  padding-block:.75rem;background:rgba(13, 13, 13, 0.306);backdrop-filter:blur(30px);
+  transition:background .3s ease;
+}
+
+/* ---------- Header Wrapper (scrollable, semi-transparent) ---------- */
+/* header.wrapper {
+  position: relative;
+  padding-block: .75rem;
+  background: transparent;
+  transition: background .3s ease;
+} */
+
+
+
+header.scrolled{background:var(--accent);backdrop-filter:blur(8px);}
+nav{display:flex;justify-content:space-between;align-items:center;}
+/* nav ul{display:flex;gap:1.5rem;font-weight:600;font-size:.95rem;} */
+.logo{font-size:1.15rem;font-weight:700;}
+a{color:var(--fg);text-decoration:none;}
+@media(max-width:600px){nav ul{gap:1rem;flex-wrap:wrap;font-size:.85rem;}}
+
+/* ---------- Hero ---------- */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;background:
+  radial-gradient(circle at 50% -20%,var(--accent) 0%,transparent 60%) no-repeat;}
+.hero .lead{font-size:1.2rem;opacity:.85;margin-block:1.5rem;}
+.cta{display:inline-block;padding:.9rem 1.8rem;border-radius:var(--radius);
+  background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);
+  color:#fff;font-weight:700;transition:.25s;}
+.cta:hover{transform:translateY(-4px);}
+
+/* ---------- Rotating headline layout ---------- */
+.headline-center{
+  display:flex;
+  flex-wrap:wrap;
+  gap:0.25em;
+  justify-content:flex-end;   /* right-align the line */
+  text-align:right;           /* right‑align the text itself */
+}
+
+.headline-center .hero-title{
+  text-align:right;         /* ensure inner <h1> also right‑aligned */
+}
+
+/* desktop ≥950px: two‑column layout, headline right‑aligned  */
+@media(min-width:950px){
+  #hero-wrapper{
+    display:grid;
+    grid-template-columns:1fr 380px; /* reserve fixed column for card */
+    align-items:center;
+    gap:4rem;
+  }
+}
+
+/* Keep the card width constant so headline length never affects layout */
+.pc-card-wrapper{
+  width:380px;
+  max-width:380px;
+  position:relative;
+  z-index:10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* mobile <950px: stacked layout, everything centered */
+@media(max-width:949px){
+  #hero-wrapper{
+    grid-template-columns:1fr;
+    place-items:center;
+  }
+  .headline-center{
+    justify-content:center;
+    text-align:center;
+  }
+  .pc-card-wrapper{
+    margin-inline:auto;
+  }
+}
+
+/* ---------- Sections ---------- */
+.skill-list{display:flex;flex-wrap:wrap;gap:.5rem;}
+.skill-list code{background:#1A1A1A;}
+
+.project{border-left:4px solid var(--accent);padding-left:1.25rem;margin-bottom:3rem;}
+#values .grid{display:grid;gap:2rem;}
+@media(min-width:860px){#values .grid{grid-template-columns:repeat(3,1fr);}}
+
+/* ---------- Contact ---------- */
+#contact form{display:flex;flex-direction:column;gap:1.25rem;max-width:460px;}
+#contact input,#contact textarea{
+  background:#1A1A1A;border:1px solid #262626;color:var(--fg);
+  padding:.85rem;border-radius:var(--radius);font-family:inherit;}
+#contact button{align-self:flex-start;}
+
+/* ---------- Footer ---------- */
+footer{padding-block:4rem;text-align:center;font-size:.9rem;opacity:.6;}
+
+/* ---------- Accent underline ---------- */
+.accent{position:relative;display:inline-block;}
+.accent::after{
+  content:'';position:absolute;left:0;bottom:.15em;width:100%;height:.25em;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  z-index:-2;border-radius:4px;animation:pulse 4s ease-in-out infinite alternate;}
+@keyframes pulse{from{filter:hue-rotate(0)}to{filter:hue-rotate(360deg)}}
+
+/* ---------- About Section Styles ---------- */
+#about.wrapper {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  margin: 2rem auto;
+  margin-top: -3rem;
+  max-width: var(--max-w);
+  display: block;
+  z-index: 10;
+}
+
+#about.wrapper h2 {
+  grid-column: 1 / -1;
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+#about p {
+  color: #ccc;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
+}
+
+#about.wrapper h3 {
+  grid-column: 1 / -1;
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  color: var(--accent2);
+  margin-bottom: 1rem;
+}
+
+#about .skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+#about .skill {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+#about .skill:hover {
+  transform: translateY(-2px);
+}
+
+
+
+/* Mobile ≤800px: stack hero card above rotating text */
+@media (max-width: 800px) {
+  /* Stack hero elements and center them */
+  .hero.wrapper {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  /* Center the rotating headline */
+  .headline-center {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+  }
+
+  /* Center the rotating-word container */
+  .headline-center .rotating-word-container {
+    width: auto !important;
+    margin: 0 auto !important;
+  }
+
+  /* Center the profile card */
+  .pc-card-wrapper {
+    margin: 0 auto 2rem !important;
+  }
+}
+/* Ensure hero headline and card appear above threads animation */
+.hero.wrapper,
+#hero-wrapper,
+.headline-center,
+.pc-card-wrapper {
+  position: relative;
+  z-index: 10;
+}
