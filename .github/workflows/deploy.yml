@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
 
       - name: Remove lockfile to avoid wrong esbuild binary
         run: rm -f package-lock.json yarn.lock
