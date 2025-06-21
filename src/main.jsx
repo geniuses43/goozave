@@ -6,6 +6,7 @@ import GooeyNav from './GooeyNav.jsx';
 import Threads from './Threads.jsx';
 import '../style.css'
 import smoothScroll from './utilites/smoothScroll.js';
+import avatarImg from '../Изображение.png';
 
 // Рендер карточки профиля
 const photoEl = document.getElementById('photo-card')
@@ -17,7 +18,7 @@ if (photoEl) {
       handle: 'goozave',
       status: 'Online',
       contactText: 'Связаться',
-      avatarUrl: './Изображение.png',
+      avatarUrl: avatarImg,
       showUserInfo: true,
       enableTilt: true,
       onContactClick: () => {
