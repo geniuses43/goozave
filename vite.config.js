@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import singleFile from 'vite-plugin-singlefile';
+import { viteSingleFile } from 'vite-plugin-singlefile';
 
 export default defineConfig({
   base: '/goozave/', // GitHub Pages repository subpath
-  plugins: [react(), singleFile()],
+  plugins: [react(), viteSingleFile()],
   server: {
     host: '0.0.0.0',
     port: 3000,
