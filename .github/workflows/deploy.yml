@@ -19,6 +19,9 @@ jobs:
           node-version: '16'
           cache: 'npm'
 
+      - name: Remove lockfile to avoid wrong esbuild binary
+        run: rm -f package-lock.json yarn.lock
+
       - name: Install dependencies
         run: npm install
 
